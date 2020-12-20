@@ -9,7 +9,7 @@ namespace OliverKlee\Seminars\Tests\LegacyUnit\Fixtures\Model;
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-class TitledTestingModel extends \Tx_Oelib_Model implements \Tx_Seminars_Interface_Titled
+class TitledTestingModel extends \Tx_Oelib_Model implements \Tx_Seminars_Interfaces_Titled
 {
     /**
      * Returns our title.

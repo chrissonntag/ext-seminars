@@ -61,7 +61,7 @@ class BackEndRegistrationAccessCheckTest extends TestCase
     public function subjectImplementsAccessCheck()
     {
         self::assertInstanceOf(
-            \Tx_Seminars_Interface_CsvAccessCheck::class,
+            \Tx_Seminars_Interfaces_CsvAccessCheck::class,
             $this->subject
         );
     }

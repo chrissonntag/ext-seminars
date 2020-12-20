@@ -2726,7 +2726,7 @@ class Tx_Seminars_FrontEnd_EventEditor extends \Tx_Seminars_FrontEnd_Editor
 
         $result = [];
 
-        /** @var \Tx_Oelib_Model|\Tx_Seminars_Interface_Titled $model */
+        /** @var \Tx_Oelib_Model|\Tx_Seminars_Interfaces_Titled $model */
         foreach ($models as $model) {
             $result[] = [
                 'caption' => $model->getTitle(),

@@ -7,7 +7,7 @@ declare(strict_types=1);
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-interface Tx_Seminars_Interface_CsvAccessCheck
+interface Tx_Seminars_Interfaces_CsvAccessCheck
 {
     /**
      * Checks whether the logged-in user (if any) in the current environment has access to a CSV export.

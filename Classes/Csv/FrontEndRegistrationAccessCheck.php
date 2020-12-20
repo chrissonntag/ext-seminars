@@ -7,7 +7,7 @@ declare(strict_types=1);
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Seminars_Csv_FrontEndRegistrationAccessCheck implements \Tx_Seminars_Interface_CsvAccessCheck
+class Tx_Seminars_Csv_FrontEndRegistrationAccessCheck implements \Tx_Seminars_Interfaces_CsvAccessCheck
 {
     /**
      * @var \Tx_Seminars_OldModel_Event

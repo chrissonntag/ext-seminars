@@ -7,7 +7,7 @@ declare(strict_types=1);
  *
  * @author Niels Pardon <mail@niels-pardon.de>
  */
-interface Tx_Seminars_Interface_Titled
+interface Tx_Seminars_Interfaces_Titled
 {
     /**
      * Returns our title.

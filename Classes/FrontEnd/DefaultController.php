@@ -169,7 +169,7 @@ class Tx_Seminars_FrontEnd_DefaultController extends \Tx_Oelib_TemplateHelper im
     /**
      * hook objects for the list view
      *
-     * @var \Tx_Seminars_Interface_Hook_EventListView[]
+     * @var \Tx_Seminars_Interfaces_Hook_EventListView[]
      *
      * @deprecated will be removed in seminars 4; use `->getListViewHookProvider()` instead
      */
@@ -192,7 +192,7 @@ class Tx_Seminars_FrontEnd_DefaultController extends \Tx_Oelib_TemplateHelper im
     /**
      * hook objects for the single view
      *
-     * @var \Tx_Seminars_Interface_Hook_EventSingleView[]
+     * @var \Tx_Seminars_Interfaces_Hook_EventSingleView[]
      *
      * @deprecated will be removed in seminars 4; see ->getSingleViewHookProvider()
      */
@@ -391,12 +391,12 @@ class Tx_Seminars_FrontEnd_DefaultController extends \Tx_Oelib_TemplateHelper im
     /**
      * Gets the hooks for the list view.
      *
-     * @return \Tx_Seminars_Interface_Hook_EventListView[]
+     * @return \Tx_Seminars_Interfaces_Hook_EventListView[]
      *         the hook objects, will be empty if no hooks have been set
      *
      * @throws \UnexpectedValueException
      *          if there are registered hook classes that do not implement the
-     *          \Tx_Seminars_Interface_Hook_EventListView interface
+     *          \Tx_Seminars_Interfaces_Hook_EventListView interface
      *
      * @deprecated will be removed in seminars 4; use `->getListViewHookProvider()` instead
      */
@@ -407,10 +407,10 @@ class Tx_Seminars_FrontEnd_DefaultController extends \Tx_Oelib_TemplateHelper im
             if (is_array($hookClasses)) {
                 foreach ($hookClasses as $hookClass) {
                     $hookInstance = GeneralUtility::getUserObj($hookClass);
-                    if (!($hookInstance instanceof \Tx_Seminars_Interface_Hook_EventListView)) {
+                    if (!($hookInstance instanceof \Tx_Seminars_Interfaces_Hook_EventListView)) {
                         throw new \UnexpectedValueException(
                             'The class ' . get_class($hookInstance) . ' is used for the event list view hook, ' .
-                            'but does not implement the \\Tx_Seminars_Interface_Hook_EventListView interface.',
+                            'but does not implement the \\Tx_Seminars_Interfaces_Hook_EventListView interface.',
                             1301928334
                         );
                     }
@@ -441,12 +441,12 @@ class Tx_Seminars_FrontEnd_DefaultController extends \Tx_Oelib_TemplateHelper im
     /**
      * Gets the hooks for the single view.
      *
-     * @return \Tx_Seminars_Interface_Hook_EventSingleView[]
+     * @return \Tx_Seminars_Interfaces_Hook_EventSingleView[]
      *         the hook objects, will be empty if no hooks have been set
      *
      * @throws \UnexpectedValueException
      *          if there are registered hook classes that do not implement the
-     *          \Tx_Seminars_Interface_Hook_EventSingleView interface
+     *          \Tx_Seminars_Interfaces_Hook_EventSingleView interface
      *
      * @deprecated will be removed in seminars 4; use `->getSingleViewHookProvider()` instead
      */
@@ -457,14 +457,14 @@ class Tx_Seminars_FrontEnd_DefaultController extends \Tx_Oelib_TemplateHelper im
             if (is_array($hookClasses)) {
                 foreach ($hookClasses as $hookClass) {
                     GeneralUtility::deprecationLog(
-                        $hookClass . ' - since seminars 3.0, interface \\Tx_Seminars_Interface_Hook_EventSingleView'
+                        $hookClass . ' - since seminars 3.0, interface \\Tx_Seminars_Interfaces_Hook_EventSingleView'
                         . ' will be removed in seminars 4.0'
                     );
                     $hookInstance = GeneralUtility::getUserObj($hookClass);
-                    if (!($hookInstance instanceof \Tx_Seminars_Interface_Hook_EventSingleView)) {
+                    if (!($hookInstance instanceof \Tx_Seminars_Interfaces_Hook_EventSingleView)) {
                         throw new \UnexpectedValueException(
                             'The class ' . get_class($hookInstance) . ' is used for the event single view hook, ' .
-                            'but does not implement the \\Tx_Seminars_Interface_Hook_EventSingleView interface.',
+                            'but does not implement the \\Tx_Seminars_Interfaces_Hook_EventSingleView interface.',
                             1306432026
                         );
                     }

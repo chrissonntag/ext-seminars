@@ -55,7 +55,7 @@ class EventTest extends UnitTestCase
      */
     public function isTitled()
     {
-        self::assertInstanceOf(\Tx_Seminars_Interface_Titled::class, $this->subject);
+        self::assertInstanceOf(\Tx_Seminars_Interfaces_Titled::class, $this->subject);
     }
 
     /**

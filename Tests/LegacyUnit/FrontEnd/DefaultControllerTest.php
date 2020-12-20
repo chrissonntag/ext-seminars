@@ -1206,7 +1206,7 @@ class DefaultControllerTest extends TestCase
 
         /** @var \Tx_Seminars_Model_Event $event */
         $event = \Tx_Oelib_MapperRegistry::get(\Tx_Seminars_Mapper_Event::class)->find($this->seminarUid);
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventSingleView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventSingleView::class);
         $hook->expects(self::once())->method('modifyEventSingleView')->with($event, self::anything());
         // We don't test for the second parameter (the template instance here)
         // because we cannot access it from the outside.
@@ -1957,7 +1957,7 @@ class DefaultControllerTest extends TestCase
     {
         $this->subject->setConfigurationValue('what_to_display', 'single_view');
 
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventSingleView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventSingleView::class);
         $hook->expects(self::never())->method('modifyTimeSlotListRow');
 
         $hookClass = get_class($hook);
@@ -1989,7 +1989,7 @@ class DefaultControllerTest extends TestCase
 
         /** @var \Tx_Seminars_Model_TimeSlot $timeSlot */
         $timeSlot = \Tx_Oelib_MapperRegistry::get(\Tx_Seminars_Mapper_TimeSlot::class)->find($timeSlotUid);
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventSingleView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventSingleView::class);
         $hook->expects(self::once())->method('modifyTimeSlotListRow')->with($timeSlot, self::anything());
         // We don't test for the second parameter (the template instance here)
         // because we cannot access it from the outside.
@@ -2028,7 +2028,7 @@ class DefaultControllerTest extends TestCase
             ['timeslots' => 2]
         );
 
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventSingleView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventSingleView::class);
         $hook->expects(self::exactly(2))->method('modifyTimeSlotListRow');
 
         $hookClass = get_class($hook);
@@ -8699,7 +8699,7 @@ class DefaultControllerTest extends TestCase
         /** @var \Tx_Seminars_Model_Event $event */
         $event = \Tx_Oelib_MapperRegistry::get(\Tx_Seminars_Mapper_Event::class)->find($this->seminarUid);
 
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventListView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventListView::class);
         $hook->expects(self::once())->method('modifyListRow')->with($event, self::anything());
         // We don't test for the second parameter (the template instance here)
         // because we cannot access it from the outside.
@@ -8738,7 +8738,7 @@ class DefaultControllerTest extends TestCase
         /** @var \Tx_Seminars_Model_Registration $registration */
         $registration = \Tx_Oelib_MapperRegistry::get(\Tx_Seminars_Mapper_Registration::class)->find($registrationUid);
 
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventListView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventListView::class);
         $hook->expects(self::once())->method('modifyMyEventsListRow')->with($registration, self::anything());
         // We don't test for the second parameter (the template instance here)
         // because we cannot access it from the outside.
@@ -8760,7 +8760,7 @@ class DefaultControllerTest extends TestCase
 
         $this->testingFramework->createAndLoginFrontEndUser();
 
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventListView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventListView::class);
         $hook->expects(self::once())->method('modifyListRow')->with($event, self::anything());
         // We don't test for the second parameter (the template instance here)
         // because we cannot access it from the outside.
@@ -8777,7 +8777,7 @@ class DefaultControllerTest extends TestCase
      */
     public function eventListNotCallsModifyMyEventsListRowHook()
     {
-        $hook = $this->createMock(\Tx_Seminars_Interface_Hook_EventListView::class);
+        $hook = $this->createMock(\Tx_Seminars_Interfaces_Hook_EventListView::class);
         $hook->expects(self::never())->method('modifyMyEventsListRow');
 
         $hookClass = get_class($hook);

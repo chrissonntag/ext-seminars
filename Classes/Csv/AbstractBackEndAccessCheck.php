@@ -10,7 +10,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
  *
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-abstract class Tx_Seminars_Csv_AbstractBackEndAccessCheck implements \Tx_Seminars_Interface_CsvAccessCheck
+abstract class Tx_Seminars_Csv_AbstractBackEndAccessCheck implements \Tx_Seminars_Interfaces_CsvAccessCheck
 {
     /**
      * @var int

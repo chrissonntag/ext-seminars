@@ -8,7 +8,7 @@ declare(strict_types=1);
  * @author Niels Pardon <mail@niels-pardon.de>
  * @author Oliver Klee <typo3-coding@oliverklee.de>
  */
-class Tx_Seminars_Model_Place extends \Tx_Oelib_Model implements \Tx_Seminars_Interface_Titled
+class Tx_Seminars_Model_Place extends \Tx_Oelib_Model implements \Tx_Seminars_Interfaces_Titled
 {
     /**
      * Returns our title.
