@@ -8,6 +8,7 @@ use OliverKlee\Seminars\Csv\EmailRegistrationListView;
 use OliverKlee\Seminars\SchedulerTask\RegistrationDigest;
 use OliverKlee\Seminars\Service\EmailService;
 use OliverKlee\Seminars\Service\EventStatusService;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Lang\LanguageService;
@@ -42,11 +43,6 @@ class MailNotifier extends AbstractTask
     protected $eventMapper = null;
 
     /**
-     * @var \Tx_Oelib_AbstractMailer
-     */
-    protected $mailer = null;
-
-    /**
      * @var RegistrationDigest
      */
     protected $registrationDigest = null;
@@ -63,9 +59,6 @@ class MailNotifier extends AbstractTask
         $this->eventStatusService = GeneralUtility::makeInstance(EventStatusService::class);
         $this->emailService = GeneralUtility::makeInstance(EmailService::class);
         $this->eventMapper = \Tx_Oelib_MapperRegistry::get(\Tx_Seminars_Mapper_Event::class);
-        /** @var \Tx_Oelib_MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(\Tx_Oelib_MailerFactory::class);
-        $this->mailer = $mailerFactory->getMailer();
         /** @var ObjectManager $objectManager */
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->registrationDigest = $objectManager->get(RegistrationDigest::class);
@@ -182,18 +175,20 @@ class MailNotifier extends AbstractTask
 
         /** @var \Tx_Seminars_OldModel_Organizer $organizer */
         foreach ($event->getOrganizerBag() as $organizer) {
-            /** @var \Tx_Oelib_Mail $eMail */
-            $eMail = GeneralUtility::makeInstance(\Tx_Oelib_Mail::class);
-            $eMail->setSender($sender);
-            $eMail->setReplyTo($replyTo);
-            $eMail->setSubject($subject);
-            $eMail->addRecipient($organizer);
-            $eMail->setMessage($this->customizeMessage($messageKey, $event, $organizer->getName()));
+            /** @var MailMessage $mail */
+            $mail = GeneralUtility::makeInstance(MailMessage::class);
+            $mail->setFrom($sender);
+            $mail->setTo($organizer);
+            if ($replyTo !== null && $replyTo !== '') {
+                $mail->setReplyTo($replyTo);
+            }
+            $mail->setSubject($subject);
+            $mail->setBody($this->customizeMessage($messageKey, $event, $organizer->getName()));
             if ($attachment !== null) {
-                $eMail->addAttachment($attachment);
+                $mail->attach(\Swift_Attachment::fromPath($attachment));
             }
 
-            $this->mailer->send($eMail);
+            $mail->send();
         }
     }
 
