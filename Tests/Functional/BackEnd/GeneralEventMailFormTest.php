@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace OliverKlee\Seminars\Tests\Functional\BackEnd;
 
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use OliverKlee\Oelib\Email\EmailCollector;
-use OliverKlee\Oelib\Email\MailerFactory;
 use OliverKlee\Seminars\BackEnd\GeneralEventMailForm;
 use OliverKlee\Seminars\Tests\Functional\BackEnd\Fixtures\TestingHookImplementor;
 use OliverKlee\Seminars\Tests\Unit\Traits\LanguageHelper;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -27,9 +27,9 @@ final class GeneralEventMailFormTest extends FunctionalTestCase
     protected $testExtensionsToLoad = ['typo3conf/ext/oelib', 'typo3conf/ext/seminars'];
 
     /**
-     * @var EmailCollector
+     * @var MockObject|MailMessage|null
      */
-    private $mailer = null;
+    private $email = null;
 
     protected function setUp()
     {
@@ -39,10 +39,8 @@ final class GeneralEventMailFormTest extends FunctionalTestCase
         $this->setUpBackendUserFromFixture(1);
         $this->initializeBackEndLanguage();
 
-        /** @var MailerFactory $mailerFactory */
-        $mailerFactory = GeneralUtility::makeInstance(MailerFactory::class);
-        $mailerFactory->enableTestMode();
-        $this->mailer = $mailerFactory->getMailer();
+        $this->email = $this->createMailMessageMock();
+        GeneralUtility::addInstance(MailMessage::class, $this->email);
     }
 
     protected function tearDown()
@@ -125,6 +123,16 @@ final class GeneralEventMailFormTest extends FunctionalTestCase
         );
         $subject->render();
 
-        self::assertContains('Joe Johnson', $this->mailer->getFirstSentEmail()->getBody());
+        self::assertContains('Joe Johnson', $this->email->getBody());
+    }
+
+    private function createMailMessageMock(): MailMessage
+    {
+        return $this->getMockBuilder(MailMessage::class)
+                    ->disableOriginalClone()
+                    ->disableArgumentCloning()
+                    ->disallowMockingUnknownTypes()
+                    ->setMethods()
+                    ->getMock();
     }
 }
